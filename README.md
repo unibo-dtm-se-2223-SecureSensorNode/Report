@@ -41,16 +41,9 @@ This structure reflects a clean **separation of concerns**: the code evolves and
 
 The `code` repository is organized as follows:
 
-SecureSensorNode/
-├── client/
-│ └── firmware/ ← STM32CubeIDE project for Nucleo board (written in C using HAL)
-├── server/ ← Microservice in Python: UART receiver + REST API
-├── automation/ ← Bash scripts, Makefiles, CI configs (optional)
-├── test/ ← Integration tests (TBD)
-├── security/ ← Keys, crypto configs, protocol notes (TBD)
-├── README.md
-└── LICENSE
-
+```text SecureSensorNode/ ├── client/ │ └── firmware/ ← STM32CubeIDE project for Nucleo board (written in C using HAL) ├── server/ ← Microservice in Python: UART receiver + 
+REST API ├── automation/ ← Bash scripts, Makefiles, CI configs (optional) ├── test/ ← Integration tests (TBD) ├── security/ ← Keys, crypto configs, protocol notes (TBD) ├── README.md 
+└── LICENSE ```
 
 This layout is not accidental. It is designed to maximize:
 
