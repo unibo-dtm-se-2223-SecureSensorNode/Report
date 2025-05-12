@@ -422,6 +422,7 @@ In contrast to manual GUI-based approaches, this automation is **explicit, repea
 The script leverages make to build the firmware from STM32CubeIDE-generated Makefiles. It converts the resulting ELF (Executable and Linkable Format) to a raw binary (.bin) using 
 arm-none-eabi-objcopy, as this is the format expected by the flash tool: while the .elf includes metadata, debug symbols, and section headers, the .bin file is a clean byte-level 
 image suitable for flashing at address 0x08000000.
+
 In DevOps, failing gracefully is good — but failing loudly and clearly is better. Our script doesn’t build blindly and hope for the best: if the .bin file isn’t created, it 
 **slams the brakes** and tells you what went wrong.
 Because in real engineering, “it seemed to work” is not a valid deployment strategy.
