@@ -115,7 +115,8 @@ as LL Drivers, or Lower Layer Drivers):
 
 *// 2. Configure PA5 as general-purpose output*
 ```GPIOA->MODER &= ~(0x3 << (5 * 2));   // Clear bits
-GPIOA->MODER |=  (0x1 << (5 * 2));   // Set mode to '01' (output)```
+GPIOA->MODER |=  (0x1 << (5 * 2));   // Set mode to '01' (output)
+```
 
 *// 3. Set output type to push-pull*
 `GPIOA->OTYPER &= ~(0x1 << 5);`
