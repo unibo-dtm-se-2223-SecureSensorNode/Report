@@ -293,7 +293,7 @@ The **SysTick interrupt** is automatically triggered every 1 ms by the ARM Corte
 2000 ms. The static keyword ensures that the variable count retains its value across multiple executions of the handler.
 
 From a software engineering perspective, this change:
-- Frees the while(1) loop, which can now be left completely empty,
+- Frees the superloop, which can now be left completely empty,
 - Turns the firmware into an event-driven architecture,
 - Improves modularity, allowing the CPU to react only when needed.
 
