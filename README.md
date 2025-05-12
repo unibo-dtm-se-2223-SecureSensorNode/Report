@@ -376,28 +376,28 @@ Why did we choose the command line?
 
 ## 3.7 DevOps-aligned Automation: Building and Flashing via Shell Script
 
-Automation and CI/CD pipelines are key pillars of DevOps engineering. Even in embedded development, adopting these practices improves consistency, testing, and deployment speed.
-In line with theese principles, we created a minimal shell script to handle firmware building and flashing from terminal.
+Automation and CI/CD pipelines are key pillars of modern software engineering — including embedded development. Embracing these DevOps-aligned practices allows for faster iteration,
+reproducibility, and integration into larger toolchains.
+To support these principles, we created a lightweight Bash script located at `automation/scripts/flash.sh` which builds and flashes the firmware without relying on STM32CubeIDE.
 
-This allows:
-- fast development and testing cycles without relying on the IDE,
-- integration in CI/CD pipelines or remote/headless environments,
-- complete visibility over the build process.
+This is especially useful in:
+- headless environments (e.g., SSH or CI runners),
+- rapid development cycles,
+- debugging low-level build issues with full visibility.
 
-The script, located at `automation/flash.sh`, performs the following steps:
-1. Cleans the build directory.
-2. Compiles the firmware using `make`.
-3. Converts the `.elf` output to a `.bin` binary using `arm-none-eabi-objcopy`.
-4. Uploads the binary to the STM32 board via `st-flash`.
+The script performs:
+1. A call to `make` within the firmware build directory,
+2. A conversion of the `.elf` file into a binary `.bin` with `arm-none-eabi-objcopy`,
+3. A flash upload to the STM32 board using `st-flash`,
+4. An automatic verification and error check if the ELF/BIN is missing.
 
-This workflow was tested on Ubuntu 22.04 using ST-Link v2.
+This approach reflects a DevOps mindset: automation, portability, and transparency. It was successfully tested on Ubuntu 22.04 with ST-Link v2 and an STM32F401RE board.
 
 ### Script: `flash.sh`
 
 ```bash
 #!/bin/bash
 
-# Path to the firmware build directory
 BUILD_DIR=client/firmware/Debug
 PROJECT_NAME=BlinkHAL
 
@@ -407,16 +407,18 @@ make -C $BUILD_DIR
 echo "[2] Creating binary image..."
 arm-none-eabi-objcopy -O binary $BUILD_DIR/${PROJECT_NAME}.elf $BUILD_DIR/${PROJECT_NAME}.bin
 
+if [ ! -f "$BUILD_DIR/${PROJECT_NAME}.bin" ]; then
+  echo "[!] Build failed or ELF file not found!"
+  exit 1
+fi
+
 echo "[3] Flashing firmware via st-flash..."
 st-flash write $BUILD_DIR/${PROJECT_NAME}.bin 0x08000000
 
-echo "Done!"
+echo "[✓] Flash completed successfully!"
 ```
 
-To make sure the script is executable:
-`chmod +x automation/flash.sh`
+In contrast to manual GUI-based approaches, this automation is **explicit, repeatable, and self-documented** — all core principles of modern DevOps pipelines.
+Moreover, placing this script in version control means that **the build process itself becomes part of the software**, not just a tool used outside of it.
 
-Now it is possible to flash the firmware with:
-`./automation/flash.sh`
-
-
+In short: we’re not just compiling code — **we're engineering process.**
