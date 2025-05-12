@@ -361,7 +361,8 @@ About flashing, instead of using the IDE’s built-in flashing system, we perfor
 
 ```bash
 arm-none-eabi-objcopy -O binary BlinkHAL.elf BlinkHAL.bin
-st-flash write BlinkHAL.bin 0x08000000```
+st-flash write BlinkHAL.bin 0x08000000
+```
 
 Why did we choose the command line?
 - Transparent output: the CLI tools display each operation performed, allowing us to clearly see the memory mapping, flashing progress, and any errors,
