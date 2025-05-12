@@ -299,7 +299,7 @@ From a software engineering perspective, this change:
 
 This empty superloop could now act as an idle loop, a typical feature in embedded systems. In a more advanced scenario, it could even be combined with low-power features, such as:
 - the __WFI() ("Wait For Interrupt") instruction, which halts the CPU until the next interrupt,
-- or ** Sleep, Stop, or Standby modes**, available on STM32 microcontrollers.
+- or **Sleep, Stop, or Standby modes**, available on STM32 microcontrollers.
 
 Low-power techniques are not implemented at this stage, but will be discussed in detail in later sections, when real sensor acquisition and data transmission are integrated. 
 At that point, reducing CPU activity and energy footprint will become essential.
